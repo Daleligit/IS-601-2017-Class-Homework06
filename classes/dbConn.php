@@ -11,7 +11,7 @@
                 $connErr .= htmlTags::changeRow("Connection Error: " . $e->getMessage());
             }
         }
-        public static function getConnection(&$connErr) {
+        public static function getConnection() {
             if (!self::$db) {
                 new dbConn();
             }
