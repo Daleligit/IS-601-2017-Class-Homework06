@@ -1,5 +1,5 @@
 <?php
-    class collection {
+    abstract class collection {
         static public function findAll() {
             global $sqlErr;
             $db = dbConn::getConnection();
