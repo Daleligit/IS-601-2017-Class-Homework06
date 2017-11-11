@@ -36,5 +36,8 @@
         static public function headingOne($input) {
             return '<h1>' . $input . '</h1>';
         }
+        static public function pageStyles () {
+            return '<link rel="stylesheet" href="styles.css">';
+        }
     }
 ?>

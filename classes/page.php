@@ -3,8 +3,7 @@
         protected $html;
         public function __construct() {
             $this->html .= htmlTags::htmlHead();
-            //Call for styles.css to define the styles of the pages
-            $this->html .= '<link rel="stylesheet" href="styles.css">';
+            $this->html .= htmlTags::pageStyles();
             $this->html .= htmlTags::htmlBody();
         }
         public function __destruct() {
