@@ -3,7 +3,7 @@
         public function get()
         {
             $res = accounts::findAll();
-            $this->html = table::createWholeTable($res);
+            $this->html .= table::createWholeTable($res);
         }
     }
 ?>
