@@ -31,7 +31,7 @@
             return $form;
         }
         static public function createSaveForm ($tableName) {
-            $form = '<form action="index.php?page=display&table=' . $tableName . '&method=Save" method="post">';
+            $form = '<form action="index.php?page=display&table=' . $tableName . '&method=save" method="post">';
             switch ($tableName) {
                 case 'accounts';
                     $res = accounts::findAll();
