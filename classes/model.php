@@ -7,16 +7,15 @@
             global $sqlErr;
             $db = dbConn::getConnection();
             if (!empty($db)) {
-                $tableName = get_called_class();
                 $array = get_object_vars($this);
                 $columArray = array_keys($array);
                 $columnString = implode(',', $columArray);
                 $valueString = implode(',', $array);
-                if (empty($tableName::findOne($this->id))) {
-                    $sql = $this->insert($tableName, $columnString, $valueString);
+                if (empty($this->tableName::findOne($this->id))) {
+                    $sql = $this->insert($this->tableName, $columnString, $valueString);
                     $result = htmlTags::changeRow('I just inserted a new record with id = ' . $this->id);
                 } else {
-                    $sql = $this->update($tableName, $columArray, $array);
+                    $sql = $this->update($this->tableName, $columArray, $array);
                     $result = htmlTags::changeRow('I just updated a record with id = ' . $this->id);
                 }
                 try {
