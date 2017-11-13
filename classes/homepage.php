@@ -2,10 +2,12 @@
     class homepage extends page {
         public function get()
         {
-            $res1 = accounts::findAll();
-            $res2 = todos::findOne(3);
-            $this->html .= table::createTable($res1);
-            $this->html .= table::createTable($res2);
+            $this->html .= htmlTags::headingOne(htmlTags::changeRow('Please select a table:'));
+            $this->html .= form::createTableSelectForm();
+        }
+        public function post() {
+            $tableName = $_POST['Selection'];
+            $this->html .= pageFunctions::changePage('index.php?page=display&table=' . $tableName);
         }
     }
 ?>
