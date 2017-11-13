@@ -14,5 +14,8 @@
                 $page->post();
             }
         }
+        static public function changePage($linkUrl) {
+            header('Location: ' . $linkUrl);
+        }
     }
 ?>
