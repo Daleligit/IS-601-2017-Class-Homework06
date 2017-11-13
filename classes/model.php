@@ -21,11 +21,9 @@
                         break;
                 }
                 if (empty($getId[0])) {
-                    print 1;
                     $sql = $this->insert($this->tableName, $columString, $valueString);
                     $result = htmlTags::changeRow('I just inserted a new record with id = ' . $this->id);
                 } else {
-                    print 2;
                     $sql = $this->update($this->tableName, $columArray, $array);
                     $result = htmlTags::changeRow('I just updated a record with id = ' . $this->id);
                 }
@@ -43,30 +41,34 @@
             return $sql;
         }
         private function update($tableName, $columArray, $array) {
-            $sql = 'UPDATE ' . $tableName . 'SET ';
+            $sql = 'UPDATE ' . $tableName . ' SET ';
             $temp = 0;
             foreach ($columArray as $key=>$colum) {
                 if ($colum != 'id') {
                     if ($temp != 0) {
                         $sql .= ', ';
                     }
-                    $sql .= $columArray[$key] . ' = ' . $array[$key];
+                    if (!empty($array[$colum])) {
+                        $sql .= $columArray[$key] . ' = ' . $array[$colum];
+                    } else {
+                        $sql .= $columArray[$key] . ' = NULL';
+                    }
                     $temp++;
                 }
             }
             $sql .= ' WHERE id = ' . $this->id;
+            print ($sql);
             return $sql;
         }
         public function delete($id) {
             global $sqlErr;
             $db = dbConn::getConnection();
             if (!empty($db)) {
-                $tableName = get_called_class();
-                $sql = 'DELETE * FROM ' . $tableName . ' WHERE id = ' . $id;
+                $sql = 'DELETE FROM ' . $this->tableName . ' WHERE id = ' . $id;
                 try {
                     $statement = $db->prepare($sql);
                     $statement->execute();
-                    $result = htmlTags::changeRow('I just deleted record with id = ' . $this->id);
+                    $result = htmlTags::changeRow('I just deleted record with id = ' . $id);
                     return $result;
                 } catch (PDOException $e){
                     $sqlErr .= htmlTags::changeRow('SQL query error: ' . $e->getMessage());
