@@ -2,6 +2,10 @@
     abstract class model
     {
         protected $tableName;
+        static public function create() {
+            $model = new static::$modelName;
+            return $model;
+        }
         public function save()
         {
             global $sqlErr;
