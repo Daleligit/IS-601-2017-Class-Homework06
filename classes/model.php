@@ -11,7 +11,15 @@
                 $columArray = array_keys($array);
                 $columnString = implode(',', $columArray);
                 $valueString = implode(',', $array);
-                if (empty($this->tableName::findOne($this->id))) {
+                switch ($this->tableName) {
+                    case 'accounts';
+                        $getId = accounts::findOne($this->id);
+                        break;
+                    case 'todos';
+                        $getId = todos::findOne($this->id);
+                        break;
+                }
+                if (empty($getId)) {
                     $sql = $this->insert($this->tableName, $columnString, $valueString);
                     $result = htmlTags::changeRow('I just inserted a new record with id = ' . $this->id);
                 } else {
