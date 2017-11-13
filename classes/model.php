@@ -9,6 +9,11 @@
             if (!empty($db)) {
                 $array = get_object_vars($this);
                 $array = arrayFunctions::arrayPop($array);
+                foreach ($array as $key=>$value){
+                    if (empty($value)) {
+                        $array[$key] = 'null';
+                    }
+                }
                 $columArray = array_keys($array);
                 $columString = implode(',', $columArray);
                 $valueString = implode(',', $array);
@@ -48,16 +53,11 @@
                     if ($temp != 0) {
                         $sql .= ', ';
                     }
-                    if (!empty($array[$colum])) {
-                        $sql .= $columArray[$key] . ' = ' . $array[$colum];
-                    } else {
-                        $sql .= $columArray[$key] . ' = NULL';
-                    }
+                    $sql .= $columArray[$key] . ' = ' . $array[$colum];
                     $temp++;
                 }
             }
             $sql .= ' WHERE id = ' . $this->id;
-            print ($sql);
             return $sql;
         }
         public function delete($id) {
@@ -68,7 +68,7 @@
                 try {
                     $statement = $db->prepare($sql);
                     $statement->execute();
-                    $result = htmlTags::changeRow('I just deleted record with id = ' . $id);
+                    $result = htmlTags::changeRow('I just deleted records with id = ' . $id);
                     return $result;
                 } catch (PDOException $e){
                     $sqlErr .= htmlTags::changeRow('SQL query error: ' . $e->getMessage());
