@@ -9,5 +9,9 @@
             }
             return $obj;
         }
+        public static function arrayPop ($array) {
+            array_pop($array);
+            return $array;
+        }
     }
 ?>
