@@ -39,5 +39,11 @@
         static public function pageStyles () {
             return '<link rel="stylesheet" href="styles.css">';
         }
+        static public function turnPage($pageName, $input) {
+            return '<input type="button" onclick="location.href=\'' .$pageName . '\'" value="' . $input . '">';
+        }
+        static public function horizontalRule() {
+            return '<hr>';
+        }
     }
 ?>
