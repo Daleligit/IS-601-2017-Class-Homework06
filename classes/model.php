@@ -8,8 +8,9 @@
             $db = dbConn::getConnection();
             if (!empty($db)) {
                 $array = get_object_vars($this);
+                $array = arrayFunctions::arrayPop($array);
                 $columArray = array_keys($array);
-                $columnString = implode(',', $columArray);
+                $columString = implode(',', $columArray);
                 $valueString = implode(',', $array);
                 switch ($this->tableName) {
                     case 'accounts';
@@ -19,10 +20,12 @@
                         $getId = todos::findOne($this->id);
                         break;
                 }
-                if (empty($getId)) {
-                    $sql = $this->insert($this->tableName, $columnString, $valueString);
+                if (empty($getId[0])) {
+                    print 1;
+                    $sql = $this->insert($this->tableName, $columString, $valueString);
                     $result = htmlTags::changeRow('I just inserted a new record with id = ' . $this->id);
                 } else {
+                    print 2;
                     $sql = $this->update($this->tableName, $columArray, $array);
                     $result = htmlTags::changeRow('I just updated a record with id = ' . $this->id);
                 }
