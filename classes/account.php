@@ -1,12 +1,13 @@
 <?php
     class account extends model {
         public $id;
-        public $owneremail;
-        public $ownerid;
-        public $createddate;
-        public $duedate;
-        public $message;
-        public $isdone;
+        public $email;
+        public $fname;
+        public $lname;
+        public $phone;
+        public $birthday;
+        public $gender;
+        public $password;
         public function __construct()
         {
             $this->tableName = 'accounts';
