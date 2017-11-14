@@ -17,6 +17,7 @@
             $method = $_GET['method'];
             $id = pageFunctions::getID($method);
             $this->html .= pageFunctions::runMethod($method,$tableName,$id);
+            $this->html .= pageFunctions::outputErrorMassage();
             $this->html .= htmlTags::turnPage('index.php?page=display&table=' . $tableName,'Back');
         }
     }

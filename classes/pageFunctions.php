@@ -39,6 +39,9 @@
                                 $result = table::createTable(todos::findOne($id));
                                 break;
                         }
+                        if ($result == '<table id=displayTable></table>') {
+                            $result = htmlTags::changeRow('There is not a line with id = ' . $id);
+                        }
                     } else {
                         $result = htmlTags::changeRow('Please input an ID');
                     }
@@ -98,6 +101,22 @@
                 return $_POST['id'];
             } else {
                 return null;
+            }
+        }
+        static public function outputErrorMassage () {
+            global $connErr;
+            global $sqlErr;
+            if (!empty($connErr)) {
+                $output = $connErr;
+                $connErr = '';
+                return $output;
+            } elseif (!empty($sqlErr)) {
+                $output = $sqlErr;
+                $sqlErr = '';
+                return $output;
+            } else {
+                $output = '';
+                return $output;
             }
         }
     }
