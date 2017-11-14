@@ -9,7 +9,6 @@
                 try {
                     $statement = $db->prepare($sql);
                     $statement->execute();
-                    $rows = $statement->rowCount();
                     $class = static::$modelName;
                     $statement->setFetchMode(PDO::FETCH_CLASS, $class);
                     $recordsSet = $statement->fetchAll();
