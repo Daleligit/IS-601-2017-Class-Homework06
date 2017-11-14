@@ -8,6 +8,7 @@
         public $birthday;
         public $gender;
         public $password;
+        protected static $modelName = 'account';
         public function __construct()
         {
             $this->tableName = 'accounts';

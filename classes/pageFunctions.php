@@ -47,11 +47,11 @@
                     if (!empty($id)) {
                         switch ($tableName) {
                             case 'accounts';
-                                $account = new account();
+                                $account = account::create();
                                 $result = $account->delete($id);
                                 break;
                             case 'todos';
-                                $todo = new todo();
+                                $todo = todo::create();
                                 $result = $todo->delete($id);
                                 break;
                         }
@@ -63,7 +63,7 @@
                     if (!empty($id)) {
                         switch ($tableName) {
                             case 'accounts';
-                                $account = new account();
+                                $account = account::create();
                                 $account->id = $id;
                                 $account->email = $_POST['email'];
                                 $account->fname = $_POST['fname'];
@@ -75,7 +75,7 @@
                                 $result = $account->save();
                                 break;
                             case 'todos';
-                                $todo = new todo();
+                                $todo = todo::create();
                                 $todo->id = $id;
                                 $todo->owneremail = $_POST['owneremail'];
                                 $todo->ownerid = $_POST['ownerid'];
