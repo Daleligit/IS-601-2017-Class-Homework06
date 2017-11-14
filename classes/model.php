@@ -3,8 +3,8 @@
     {
         protected $tableName;
         static public function create () {
-            $obj = new static::$modelName;
-            return $obj;
+            $model = new static::$modelName;
+            return $model;
         }
         public function save()
         {
