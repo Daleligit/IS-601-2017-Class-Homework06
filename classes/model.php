@@ -64,15 +64,15 @@
             $sql .= ' WHERE id = ' . $this->id;
             return $sql;
         }
-        public function delete($id) {
+        public function delete() {
             global $sqlErr;
             $db = dbConn::getConnection();
             if (!empty($db)) {
-                $sql = 'DELETE FROM ' . $this->tableName . ' WHERE id = ' . $id;
+                $sql = 'DELETE FROM ' . $this->tableName . ' WHERE id = ' . $this->id;
                 try {
                     $statement = $db->prepare($sql);
                     $statement->execute();
-                    $result = htmlTags::changeRow('I just deleted records with id = ' . $id);
+                    $result = htmlTags::changeRow('I just deleted records with id = ' . $this->id);
                     return $result;
                 } catch (PDOException $e){
                     $sqlErr .= htmlTags::changeRow('SQL query error: ' . $e->getMessage());
