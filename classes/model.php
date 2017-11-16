@@ -30,10 +30,10 @@
                         break;
                 }
                 if (empty($getId[0])) {
-                    $sql = $this->insert($this->tableName, $columString, $valueString);
+                    $sql = $this->insert($columString, $valueString);
                     $result = htmlTags::changeRow('I just inserted a new record with id = ' . $this->id);
                 } else {
-                    $sql = $this->update($this->tableName, $columArray, $array);
+                    $sql = $this->update($columArray, $array);
                     $result = htmlTags::changeRow('I just updated a record with id = ' . $this->id);
                 }
                 try {
@@ -45,12 +45,12 @@
                 }
             }
         }
-        private function insert($tableName, $columString, $valueString) {
-            $sql = 'INSERT INTO ' . $tableName . ' (' . $columString . ') VALUES (' . $valueString . ')';
+        private function insert($columString, $valueString) {
+            $sql = 'INSERT INTO ' . $this->tableName . ' (' . $columString . ') VALUES (' . $valueString . ')';
             return $sql;
         }
-        private function update($tableName, $columArray, $array) {
-            $sql = 'UPDATE ' . $tableName . ' SET ';
+        private function update($columArray, $array) {
+            $sql = 'UPDATE ' . $this->tableName . ' SET ';
             $temp = 0;
             foreach ($columArray as $key=>$colum) {
                 if ($colum != 'id') {

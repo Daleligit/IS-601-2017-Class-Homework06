@@ -20,25 +20,11 @@
         static public function runMethod ($method,$tableName,$id) {
             switch ($method) {
                 case 'findAll';
-                    switch ($tableName) {
-                        case 'accounts';
-                            $result = table::createTable(accounts::findAll());
-                            break;
-                        case 'todos';
-                            $result = table::createTable(todos::findAll());
-                            break;
-                    }
+                    $result = table::createTable($tableName::findAll());
                     break;
                 case 'findOne';
                     if (!empty($id)) {
-                        switch ($tableName) {
-                            case 'accounts';
-                                $result = table::createTable(accounts::findOne($id));
-                                break;
-                            case 'todos';
-                                $result = table::createTable(todos::findOne($id));
-                                break;
-                        }
+                        $result = table::createTable($tableName::findOne($id));
                         if ($result == '<table id=displayTable></table>') {
                             $result = htmlTags::changeRow('There is not a line with id = ' . $id);
                         }
@@ -47,48 +33,39 @@
                     }
                     break;
                 case 'delete';
+                    $tableName = stringFunctions::rightTrim($tableName, 's');
                     if (!empty($id)) {
-                        switch ($tableName) {
-                            case 'accounts';
-                                $account = account::create();
-                                $result = $account->delete($id);
-                                break;
-                            case 'todos';
-                                $todo = todo::create();
-                                $result = $todo->delete($id);
-                                break;
-                        }
+                        $table = $tableName::create();
+                        $result = $table->delete($id);
                     } else {
                         $result = htmlTags::changeRow('Please input an ID');
                     }
                     break;
                 case 'save';
+                    $tableName = stringFunctions::rightTrim($tableName, 's');
                     if (!empty($id)) {
+                        $table = $tableName::create();
+                        $table->id = $id;
                         switch ($tableName) {
-                            case 'accounts';
-                                $account = account::create();
-                                $account->id = $id;
-                                $account->email = $_POST['email'];
-                                $account->fname = $_POST['fname'];
-                                $account->lname = $_POST['lname'];
-                                $account->phone = $_POST['phone'];
-                                $account->birthday = $_POST['birthday'];
-                                $account->gender = $_POST['gender'];
-                                $account->password = $_POST['password'];
-                                $result = $account->save();
+                            case 'account';
+                                $table->email = $_POST['email'];
+                                $table->fname = $_POST['fname'];
+                                $table->lname = $_POST['lname'];
+                                $table->phone = $_POST['phone'];
+                                $table->birthday = $_POST['birthday'];
+                                $table->gender = $_POST['gender'];
+                                $table->password = $_POST['password'];
                                 break;
-                            case 'todos';
-                                $todo = todo::create();
-                                $todo->id = $id;
-                                $todo->owneremail = $_POST['owneremail'];
-                                $todo->ownerid = $_POST['ownerid'];
-                                $todo->createddate = $_POST['createddate'];
-                                $todo->duedate = $_POST['duedate'];
-                                $todo->message = $_POST['message'];
-                                $todo->isdone = $_POST['isdone'];
-                                $result = $todo->save();
+                            case 'todo';
+                                $table->owneremail = $_POST['owneremail'];
+                                $table->ownerid = $_POST['ownerid'];
+                                $table->createddate = $_POST['createddate'];
+                                $table->duedate = $_POST['duedate'];
+                                $table->message = $_POST['message'];
+                                $table->isdone = $_POST['isdone'];
                                 break;
                         }
+                        $result = $table->save();
                     } else {
                         $result = htmlTags::changeRow('Please input an ID');
                     }
