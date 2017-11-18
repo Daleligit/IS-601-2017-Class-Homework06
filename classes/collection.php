@@ -4,12 +4,11 @@
             global $sqlErr;
             $db = dbConn::getConnection();
             if (!empty($db)) {
-                $tableName = get_called_class();
-                $sql = 'SELECT * FROM ' . $tableName;
+                $class = static::$modelName;
+                $sql = 'SELECT * FROM ' . $class;
                 try {
                     $statement = $db->prepare($sql);
                     $statement->execute();
-                    $class = static::$modelName;
                     $statement->setFetchMode(PDO::FETCH_CLASS, $class);
                     $recordsSet = $statement->fetchAll();
                     $recordsSet = arrayFunctions::objToArray($recordsSet);
@@ -23,12 +22,11 @@
             global $sqlErr;
             $db = dbConn::getConnection();
             if (!empty($db)) {
-                $tableName = get_called_class();
-                $sql = 'SELECT * FROM ' . $tableName . ' WHERE id = ' . $id;
+                $class = static::$modelName;
+                $sql = 'SELECT * FROM ' . $class . ' WHERE id = ' . $id;
                 try {
                     $statement = $db->prepare($sql);
                     $statement->execute();
-                    $class = static::$modelName;
                     $statement->setFetchMode(PDO::FETCH_CLASS, $class);
                     $recordsSet = $statement->fetchAll();
                     $recordsSet = arrayFunctions::objToArray($recordsSet);

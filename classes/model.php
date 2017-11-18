@@ -33,7 +33,7 @@
                     $sql = $this->insert($columString, $valueString);
                     $result = htmlTags::changeRow('I just inserted a new record with id = ' . $this->id);
                 } else {
-                    $sql = $this->update($columArray, $array);
+                    $sql = $this->update($array);
                     $result = htmlTags::changeRow('I just updated a record with id = ' . $this->id);
                 }
                 try {
@@ -49,16 +49,13 @@
             $sql = 'INSERT INTO ' . $this->tableName . ' (' . $columString . ') VALUES (' . $valueString . ')';
             return $sql;
         }
-        private function update($columArray, $array) {
+        private function update($array) {
             $sql = 'UPDATE ' . $this->tableName . ' SET ';
-            $temp = 0;
-            foreach ($columArray as $key=>$colum) {
-                if ($colum != 'id') {
-                    if ($temp != 0) {
-                        $sql .= ', ';
-                    }
-                    $sql .= $columArray[$key] . ' = ' . $array[$colum];
-                    $temp++;
+            foreach ($array as $key=>$colum) {
+                if ($key == 'id') {
+                    $sql .= $key . '=' . $colum;
+                } else {
+                    $sql .= ',' . $key . '=' . $colum;
                 }
             }
             $sql .= ' WHERE id = ' . $this->id;

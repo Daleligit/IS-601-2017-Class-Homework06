@@ -36,7 +36,8 @@
                     $tableName = stringFunctions::rightTrim($tableName, 's');
                     if (!empty($id)) {
                         $table = $tableName::create();
-                        $result = $table->delete($id);
+                        $table->id = $id;
+                        $result = $table->delete();
                     } else {
                         $result = htmlTags::changeRow('Please input an ID');
                     }
