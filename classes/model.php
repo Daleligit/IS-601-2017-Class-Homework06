@@ -18,7 +18,7 @@
                         $array[$key] = 'null';
                     }
                 }
-                $columArray = array_keys($array);
+                $columArray = arrayFunctions::arrayKeys($array);
                 $columString = implode(',', $columArray);
                 $valueString = implode(',', $array);
                 switch ($this->tableName) {
