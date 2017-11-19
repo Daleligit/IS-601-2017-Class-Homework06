@@ -13,5 +13,8 @@
             array_pop($array);
             return $array;
         }
+        public static function arrayKeys ($array) {
+            return array_keys($array);
+        }
     }
 ?>
